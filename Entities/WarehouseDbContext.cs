@@ -22,6 +22,32 @@ namespace WarehouseAPI.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Employee>(etb =>
+            {
+                etb.Property(e => e.Name).IsRequired().HasMaxLength(25);
+                etb.Property(e => e.Surname).IsRequired().HasMaxLength(25);
+                etb.Property(e => e.Email).IsRequired().HasMaxLength(25);
+                etb.Property(e => e.DateOfBirth).IsRequired().HasPrecision(3);
+            });
+            modelBuilder.Entity<Goods>(etb =>
+            {
+                etb.Property(g => g.Name).IsRequired().HasMaxLength(25);
+                etb.Property(g => g.Price).HasPrecision(14, 2);
+            });
+            modelBuilder.Entity<Order>(etb =>
+            {
+                etb.Property(o => o.AdmissionDate).HasPrecision(3);
+                etb.Property(o => o.PreparationDate).HasPrecision(3);
+                etb.Property(o => o.PostDate).HasPrecision(3);
+                etb.Property(o => o.RequireDate).IsRequired().HasPrecision(3);
+            });
+            modelBuilder.Entity<OrderDetails>(etb =>
+            {
+                etb.Property(od => od.Quantity).IsRequired();
+                etb.Property(od => od.Price).HasPrecision(14, 2);
+                etb.Property(od => od.TotalPrice).HasPrecision(14, 2);
+            });
+
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
