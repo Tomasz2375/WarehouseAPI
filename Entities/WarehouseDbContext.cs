@@ -5,9 +5,13 @@ namespace WarehouseAPI.Entities
 {
     public class WarehouseDbContext : DbContext
     {
-        private string _connectionString =
-        "Server=LAPTOP-V2SU36SG\\SQLEXPRESS01;Database=WarehouseAPI;Trusted_Connection=True;Encrypt=False";
-        
+        // private string _connectionString =
+        // "Server=LAPTOP-V2SU36SG\\SQLEXPRESS01;Database=WarehouseAPI;Trusted_Connection=True;Encrypt=False";
+        public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<Address> Addresses { get; set; }   
         public DbSet<Employee> Employees { get; set; }  
         public DbSet<Goods> Goods { get; set; }
@@ -22,7 +26,7 @@ namespace WarehouseAPI.Entities
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+
         }
 
     }
