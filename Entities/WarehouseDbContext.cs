@@ -28,11 +28,14 @@ namespace WarehouseAPI.Entities
                 etb.Property(e => e.Surname).IsRequired().HasMaxLength(25);
                 etb.Property(e => e.Email).IsRequired().HasMaxLength(25);
                 etb.Property(e => e.DateOfBirth).IsRequired().HasPrecision(3);
+                etb.HasOne(e => e.Address).WithOne(a => a.Employee);
+                etb.HasOne(e => e.Role).WithMany(r => r.Employees);
             });
             modelBuilder.Entity<Goods>(etb =>
             {
                 etb.Property(g => g.Name).IsRequired().HasMaxLength(25);
                 etb.Property(g => g.Price).HasPrecision(14, 2);
+                etb.HasMany(g => g.OrderDetails).WithOne(od => od.Goods);
             });
             modelBuilder.Entity<Order>(etb =>
             {
@@ -40,6 +43,8 @@ namespace WarehouseAPI.Entities
                 etb.Property(o => o.PreparationDate).HasPrecision(3);
                 etb.Property(o => o.PostDate).HasPrecision(3);
                 etb.Property(o => o.RequireDate).IsRequired().HasPrecision(3);
+                etb.HasOne(o => o.Status).WithOne(s => s.Order);
+                etb.HasMany(o => o.OrderDetails).WithOne(od => od.Order);
             });
             modelBuilder.Entity<OrderDetails>(etb =>
             {
