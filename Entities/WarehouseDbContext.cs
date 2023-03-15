@@ -60,7 +60,15 @@ namespace WarehouseAPI.Entities
                     new Role() { Id = 3, Name = "Planner" },
                     new Role() { Id = 4, Name = "Administrator" } );
             });
-
+            modelBuilder.Entity<Status>(etb =>
+            {
+                etb.HasData(
+                    new Status() { Id = 1, Description = "Waiting" },
+                    new Status() { Id = 2, Description = "InPreparation" },
+                    new Status() { Id = 3, Description = "Prepared" },
+                    new Status() { Id = 4, Description = "Sent" },
+                    new Status() { Id = 5, Description = "Rejected" } );
+            });
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
