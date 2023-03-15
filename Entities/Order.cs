@@ -8,6 +8,7 @@
         public DateTime PostDate { get; set; }
         public DateTime RequireDate { get; set; }
         public Status Status { get; set; }
+        public int StatusId { get; set; }
         public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
     }
 }

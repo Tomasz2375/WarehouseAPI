@@ -43,7 +43,7 @@ namespace WarehouseAPI.Entities
                 etb.Property(o => o.PreparationDate).HasPrecision(3);
                 etb.Property(o => o.PostDate).HasPrecision(3);
                 etb.Property(o => o.RequireDate).IsRequired().HasPrecision(3);
-                etb.HasOne(o => o.Status).WithOne(s => s.Order);
+                etb.HasOne(o => o.Status).WithMany(s => s.Orders);
                 etb.HasMany(o => o.OrderDetails).WithOne(od => od.Order);
             });
             modelBuilder.Entity<OrderDetails>(etb =>
@@ -52,13 +52,24 @@ namespace WarehouseAPI.Entities
                 etb.Property(od => od.Price).HasPrecision(14, 2);
                 etb.Property(od => od.TotalPrice).HasPrecision(14, 2);
             });
-
+            modelBuilder.Entity<Role>(etb =>
+            {
+                etb.HasData(
+                    new Role() { Id = 1, Name = "OrderPicker" },
+                    new Role() { Id = 2, Name = "Warehouseman" },
+                    new Role() { Id = 3, Name = "Planner" },
+                    new Role() { Id = 4, Name = "Administrator" } );
+            });
+            modelBuilder.Entity<Status>(etb =>
+            {
+                etb.HasData(
+                    new Status() { Id = 1, Description = "Waiting" },
+                    new Status() { Id = 2, Description = "InPreparation" },
+                    new Status() { Id = 3, Description = "Prepared" },
+                    new Status() { Id = 4, Description = "Sent" },
+                    new Status() { Id = 5, Description = "Rejected" } );
+            });
 
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
     }
 }
