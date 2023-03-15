@@ -52,6 +52,14 @@ namespace WarehouseAPI.Entities
                 etb.Property(od => od.Price).HasPrecision(14, 2);
                 etb.Property(od => od.TotalPrice).HasPrecision(14, 2);
             });
+            modelBuilder.Entity<Role>(etb =>
+            {
+                etb.HasData(
+                    new Role() { Id = 1, Name = "OrderPicker" },
+                    new Role() { Id = 2, Name = "Warehouseman" },
+                    new Role() { Id = 3, Name = "Planner" },
+                    new Role() { Id = 4, Name = "Administrator" } );
+            });
 
 
         }
