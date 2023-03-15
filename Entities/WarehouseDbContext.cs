@@ -71,10 +71,5 @@ namespace WarehouseAPI.Entities
             });
 
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
     }
 }
