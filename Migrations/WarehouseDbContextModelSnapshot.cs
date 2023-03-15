@@ -53,7 +53,7 @@ namespace WarehouseAPI.Migrations
                     b.HasIndex("EmployeeId")
                         .IsUnique();
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.Employee", b =>
@@ -90,7 +90,7 @@ namespace WarehouseAPI.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.Goods", b =>
@@ -118,7 +118,7 @@ namespace WarehouseAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Goods");
+                    b.ToTable("Goods", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.Order", b =>
@@ -147,7 +147,7 @@ namespace WarehouseAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.OrderDetails", b =>
@@ -181,7 +181,7 @@ namespace WarehouseAPI.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.Role", b =>
@@ -197,7 +197,7 @@ namespace WarehouseAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.Status", b =>
@@ -219,7 +219,7 @@ namespace WarehouseAPI.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Status");
+                    b.ToTable("Status", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseAPI.Entities.Address", b =>

@@ -43,7 +43,7 @@ namespace WarehouseAPI.Entities
                 etb.Property(o => o.PreparationDate).HasPrecision(3);
                 etb.Property(o => o.PostDate).HasPrecision(3);
                 etb.Property(o => o.RequireDate).IsRequired().HasPrecision(3);
-                etb.HasOne(o => o.Status).WithOne(s => s.Order);
+                etb.HasOne(o => o.Status).WithMany(s => s.Orders);
                 etb.HasMany(o => o.OrderDetails).WithOne(od => od.Order);
             });
             modelBuilder.Entity<OrderDetails>(etb =>
