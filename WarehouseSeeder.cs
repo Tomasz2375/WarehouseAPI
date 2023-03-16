@@ -38,7 +38,8 @@ namespace WarehouseAPI
                         Street = "Królowej Jadwigi",
                         PostalCode = "20-282",
                         HouseNumber = "121/212"
-                    }
+                    },
+                    RoleId = 4
                 },
                 new Employee()
                 {
@@ -53,7 +54,8 @@ namespace WarehouseAPI
                         Street = "Filaretów",
                         PostalCode = "20-280",
                         HouseNumber = "13"
-                    }
+                    },
+                    RoleId = 3
                 },
                 new Employee()
                 {
@@ -68,7 +70,8 @@ namespace WarehouseAPI
                         Street = "Zygmunta Augusta",
                         PostalCode = "20-282",
                         HouseNumber = "99"
-                    }
+                    },
+                       RoleId = 2
                 },
                 new Employee()
                 {
@@ -83,7 +86,8 @@ namespace WarehouseAPI
                         Street = "Różana",
                         PostalCode = "20-278",
                         HouseNumber = "12/14"
-                    }
+                    },
+                       RoleId = 1
                 }
             };
             return employees;
