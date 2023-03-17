@@ -23,9 +23,11 @@ seeder.Seed();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("swagger/v1/swagger.json", "WarehouseAPI");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "WarehouseAPI");
 });
 app.UseAuthorization();
 
