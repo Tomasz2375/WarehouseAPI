@@ -13,7 +13,7 @@ builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddDbContext<WarehouseDbContext>(option => option
 .UseSqlServer(builder.Configuration.GetConnectionString("WarehouseConnectionString")));
 
-
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 var scope = app.Services.CreateScope();
@@ -24,6 +24,11 @@ seeder.Seed();
 
 app.UseHttpsRedirection();
 
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "WarehouseAPI");
+});
 app.UseAuthorization();
 
 app.MapControllers();
