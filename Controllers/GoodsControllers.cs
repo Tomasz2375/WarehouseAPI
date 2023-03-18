@@ -1,36 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WarehouseAPI.Entities;
+using WarehouseAPI.Models;
+using WarehouseAPI.Services;
 
 namespace WarehouseAPI.Controllers
 {
     [Route("api/goods")]
     public class GoodsControllers : ControllerBase
     {
-        private readonly WarehouseDbContext _dbContext;
-        public GoodsControllers(WarehouseDbContext dbContext)
+        private readonly IGoodsService _service;
+        public GoodsControllers(IGoodsService service)
         {
-            _dbContext = dbContext;
+            _service = service;
         }
 
         [HttpGet]
         public ActionResult <IEnumerable<Goods>> GetAllGoods() 
         {
-            var goods = _dbContext.Goods.ToList();
+            var goods = _service.GetAll();
             return Ok(goods);
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public ActionResult <Goods> GetGoodsFromId([FromRoute] int id)
         {
-            var goods = _dbContext
-                .Goods
-                .FirstOrDefault(g => g.Id == id);
-
-            if(goods == null)
-            {
-                return NotFound();
-            }
-
+            var goods = _service.GetById(id);
+            if(goods == null) { return NotFound(); }
             return Ok(goods);
+        }
+        [HttpPost]
+        public ActionResult AddGoods([FromBody] AddGoodsDto dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var id = _service.AddGoogs(dto);
+            return Created($"/api/goods/{id}", null);
         }
     }
 }
