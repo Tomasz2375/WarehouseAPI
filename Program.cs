@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using WarehouseAPI;
 using WarehouseAPI.Entities;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<WarehouseSeeder>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<WarehouseDbContext>(option => option
 .UseSqlServer(builder.Configuration.GetConnectionString("WarehouseConnectionString")));
 

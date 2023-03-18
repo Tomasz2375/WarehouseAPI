@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WarehouseAPI.Entities;
+using WarehouseAPI.Models;
 
 namespace WarehouseAPI.Controllers
 {
@@ -7,9 +9,11 @@ namespace WarehouseAPI.Controllers
     public class GoodsControllers : ControllerBase
     {
         private readonly WarehouseDbContext _dbContext;
-        public GoodsControllers(WarehouseDbContext dbContext)
+        private readonly IMapper _mapper;
+        public GoodsControllers(WarehouseDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -33,8 +37,9 @@ namespace WarehouseAPI.Controllers
             return Ok(goods);
         }
         [HttpPost]
-        public ActionResult AddGoods([FromBody] Goods goods)
+        public ActionResult AddGoods([FromBody] AddGoodsDto dto)
         {
+            var goods = _mapper.Map<Goods>(dto);
             _dbContext.Goods.Add(goods);
             _dbContext.SaveChanges();
             return Created($"/api/goods/{goods.Id}", null);
