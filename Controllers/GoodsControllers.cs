@@ -2,47 +2,38 @@
 using Microsoft.AspNetCore.Mvc;
 using WarehouseAPI.Entities;
 using WarehouseAPI.Models;
+using WarehouseAPI.Services;
 
 namespace WarehouseAPI.Controllers
 {
     [Route("api/goods")]
     public class GoodsControllers : ControllerBase
     {
-        private readonly WarehouseDbContext _dbContext;
-        private readonly IMapper _mapper;
-        public GoodsControllers(WarehouseDbContext dbContext, IMapper mapper)
+        private readonly IGoodsService _service;
+        public GoodsControllers(IGoodsService service)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]
         public ActionResult <IEnumerable<Goods>> GetAllGoods() 
         {
-            var goods = _dbContext.Goods.ToList();
+            var goods = _service.GetAll();
             return Ok(goods);
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public ActionResult <Goods> GetGoodsFromId([FromRoute] int id)
         {
-            var goods = _dbContext
-                .Goods
-                .FirstOrDefault(g => g.Id == id);
-
-            if(goods == null)
-            {
-                return NotFound();
-            }
-
+            var goods = _service.GetById(id);
+            if(goods == null) { return NotFound(); }
             return Ok(goods);
         }
         [HttpPost]
         public ActionResult AddGoods([FromBody] AddGoodsDto dto)
         {
-            var goods = _mapper.Map<Goods>(dto);
-            _dbContext.Goods.Add(goods);
-            _dbContext.SaveChanges();
-            return Created($"/api/goods/{goods.Id}", null);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var id = _service.AddGoogs(dto);
+            return Created($"/api/goods/{id}", null);
         }
     }
 }

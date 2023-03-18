@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using WarehouseAPI;
 using WarehouseAPI.Entities;
+using WarehouseAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IGoodsService, GoodsService>();
 builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<WarehouseDbContext>(option => option

@@ -1,8 +1,10 @@
-﻿namespace WarehouseAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WarehouseAPI.Models
 {
     public class AddGoodsDto
     {
-        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public int Stock { get; set; }
         public decimal Price { get; set; }
