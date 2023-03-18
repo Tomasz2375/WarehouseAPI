@@ -32,5 +32,12 @@ namespace WarehouseAPI.Controllers
 
             return Ok(goods);
         }
+        [HttpPost]
+        public ActionResult AddGoods([FromBody] Goods goods)
+        {
+            _dbContext.Goods.Add(goods);
+            _dbContext.SaveChanges();
+            return Created($"/api/goods/{goods.Id}", null);
+        }
     }
 }
