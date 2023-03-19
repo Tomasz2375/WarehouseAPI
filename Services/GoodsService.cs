@@ -10,6 +10,7 @@ namespace WarehouseAPI.Services
         public IEnumerable<Goods> GetAll();
         public int AddGoogs(AddGoodsDto dto);
         bool Update(int id, ModifyGoodsDto dto);
+        public bool Delete(int id);
     }
 
     public class GoodsService : IGoodsService
@@ -57,6 +58,14 @@ namespace WarehouseAPI.Services
             goods.Stock = dto.Stock;
             goods.Price = dto.Price;
             goods.Description = dto.Description;
+            _dbContext.SaveChanges();
+            return true;
+        }
+        public bool Delete(int id)
+        {
+            var goods = _dbContext.Goods.FirstOrDefault(g => g.Id == id);
+            if (goods is null) return false;
+            _dbContext.Remove(goods);
             _dbContext.SaveChanges();
             return true;
         }

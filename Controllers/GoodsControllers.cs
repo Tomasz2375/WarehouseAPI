@@ -43,5 +43,12 @@ namespace WarehouseAPI.Controllers
             if (!isUpdated) return NotFound();
             return Ok();
         }
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromRoute] int id)
+        {
+            var isDelete = _service.Delete(id);
+            if(!isDelete) return NoContent();
+            return Ok();
+        }
     }
 }
