@@ -9,6 +9,7 @@ namespace WarehouseAPI
         public WarehouseMappingProfile()
         {
             CreateMap<AddGoodsDto, Goods>();
+            CreateMap<ModifyGoodsDto, Goods>();
         }
     }
 }
