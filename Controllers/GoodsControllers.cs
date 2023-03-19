@@ -35,5 +35,13 @@ namespace WarehouseAPI.Controllers
             var id = _service.AddGoogs(dto);
             return Created($"/api/goods/{id}", null);
         }
+        [HttpPut("{id}")]
+        public ActionResult Update([FromRoute] int id, [FromBody] ModifyGoodsDto dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var isUpdated = _service.Update(id, dto);
+            if (!isUpdated) return NotFound();
+            return Ok();
+        }
     }
 }

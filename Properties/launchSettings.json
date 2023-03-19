@@ -12,7 +12,7 @@
     "WarehouseAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "weatherforecast",
       "applicationUrl": "https://localhost:7172;http://localhost:5082",
       "environmentVariables": {
