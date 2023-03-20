@@ -18,5 +18,11 @@ namespace WarehouseAPI.Controllers
             _service.RegisterEmployee(dto);
             return Ok();
         }
+        [HttpPost("login")]
+        public ActionResult Login([FromBody] LoginDto dto)
+        {
+            string token = _service.GenerateJwt(dto);
+            return Ok(token);
+        }
     }
 }
