@@ -29,7 +29,7 @@ namespace WarehouseAPI.Entities
                 etb.Property(e => e.Email).IsRequired().HasMaxLength(25);
                 etb.Property(e => e.DateOfBirth).IsRequired().HasPrecision(3);
                 etb.HasOne(e => e.Address).WithOne(a => a.Employee);
-                etb.HasOne(e => e.Role).WithMany(r => r.Employees);
+                etb.HasOne(e => e.Role).WithMany(r => r.Employees).IsRequired();
             });
             modelBuilder.Entity<Goods>(etb =>
             {
