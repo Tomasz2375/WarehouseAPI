@@ -13,7 +13,7 @@ namespace WarehouseAPI.Services
     public interface IAccountService
     {
         public void RegisterEmployee(RegisterEmployeesDto dto);
-        string GenerateJwt(LoginDto dto);
+        public string GenerateJwt(LoginDto dto);
     }
     public class AccountService : IAccountService
     {

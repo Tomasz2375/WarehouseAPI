@@ -27,7 +27,6 @@ builder.Services.AddDbContext<WarehouseDbContext>(option => option
 .UseSqlServer(builder.Configuration.GetConnectionString("WarehouseConnectionString")));
 
 builder.Services.AddSwaggerGen();
-var app = builder.Build();
 var authenticationSettings = new AuthenticationSettings();
 builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
 builder.Services.AddSingleton(authenticationSettings);
@@ -48,6 +47,7 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
+var app = builder.Build();
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<WarehouseSeeder>();
 seeder.Seed();
