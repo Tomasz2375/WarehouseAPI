@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IGoodsService, GoodsService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<WarehouseDbContext>(option => option
