@@ -1,4 +1,5 @@
-﻿using WarehouseAPI.Exceptions;
+﻿using System.Runtime.InteropServices;
+using WarehouseAPI.Exceptions;
 
 namespace WarehouseAPI.Middleware
 {
@@ -8,14 +9,21 @@ namespace WarehouseAPI.Middleware
         {
             try
             {
-                next.Invoke(context);
+                await next.Invoke(context);
             }
             catch (BadRequestException badRequest)
             {
-                context.Response.StatusCode = 404;
+                context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(badRequest.Message);
             }
+            catch(NotFoundException notFound)
+            {
+                context.Response.StatusCode = 404;
+                await context.Response.WriteAsync(notFound.Message);
+            }
         }
+
     }
 }
+
 

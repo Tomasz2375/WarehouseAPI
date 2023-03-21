@@ -19,5 +19,11 @@ namespace WarehouseAPI.Controllers
             var employees = _employeeService.GetAllEmployee();
             return Ok(employees);
         }
+        [HttpGet("{id}")]
+        public ActionResult <EmployeeDto> GetEmployeeById([FromRoute] int id)
+        {
+            var employee = _employeeService.GetEmployeeById(id);
+            return Ok(employee);
+        }
     }
 }
