@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using WarehouseAPI;
 using WarehouseAPI.Entities;
+using WarehouseAPI.Middleware;
 using WarehouseAPI.Models;
 using WarehouseAPI.Services;
 
@@ -18,9 +19,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddScoped<IGoodsService, GoodsService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
 builder.Services.AddScoped<IValidator<RegisterEmployeesDto>, RegisterEmployeeDtoValidator>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<WarehouseDbContext>(option => option
