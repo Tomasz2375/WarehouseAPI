@@ -57,8 +57,9 @@ seeder.Seed();
 
 // Configure the HTTP request pipeline.
 app.UseAuthentication();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
-
+app.UseSwagger();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
