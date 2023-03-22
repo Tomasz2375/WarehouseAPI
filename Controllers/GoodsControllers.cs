@@ -7,6 +7,7 @@ using WarehouseAPI.Services;
 namespace WarehouseAPI.Controllers
 {
     [Route("api/goods")]
+    [ApiController]
     public class GoodsControllers : ControllerBase
     {
         private readonly IGoodsService _service;
@@ -31,14 +32,12 @@ namespace WarehouseAPI.Controllers
         [HttpPost]
         public ActionResult AddGoods([FromBody] AddGoodsDto dto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             var id = _service.AddGoogs(dto);
             return Created($"/api/goods/{id}", null);
         }
         [HttpPut("{id}")]
         public ActionResult Update([FromRoute] int id, [FromBody] ModifyGoodsDto dto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             var isUpdated = _service.Update(id, dto);
             if (!isUpdated) return NotFound();
             return Ok();

@@ -1,14 +1,14 @@
-﻿namespace WarehouseAPI.Entities
+﻿using WarehouseAPI.Entities;
+
+namespace WarehouseAPI.Models
 {
-    public class Order
+    public class OrderDto
     {
         public int Id { get; set; }
         public DateTime AdmissionDate { get; set; }
         public DateTime? PreparationDate { get; set; }
         public DateTime? PostDate { get; set; }
         public DateTime RequireDate { get; set; }
-        public Status Status { get; set; }
-        public int StatusId { get; set; }
-        public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
+        public String Status { get; set; }
     }
 }
