@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using WarehouseAPI.Entities;
 using WarehouseAPI.Models;
 using WarehouseAPI.Services;
 
@@ -18,6 +20,16 @@ namespace WarehouseAPI.Controllers
             var orders = _orderService.GetOrders();
             return Ok(orders);
 
+        }
+        [HttpPost]
+        public ActionResult AddOrder([FromBody] AddOrderDto dto)
+        {
+            if(!ModelState.IsValid) 
+            {
+                return BadRequest(ModelState);
+            }
+            var id = _orderService.AddOrder(dto);
+            return Created($"api/order/{id}", null);
         }
     }
 }

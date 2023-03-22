@@ -8,6 +8,7 @@ namespace WarehouseAPI.Services
 {
     public interface IOrderService
     {
+        int AddOrder(AddOrderDto dto);
         IEnumerable<OrderDto> GetOrders();
     }
 
@@ -32,6 +33,14 @@ namespace WarehouseAPI.Services
             }
             var result = _mapper.Map<IEnumerable<OrderDto>>(orders);
             return result;
+        }
+        public int AddOrder(AddOrderDto dto)
+        {
+            var order = _mapper.Map<Order>(dto);
+            order.StatusId = 1;
+            _dbContext.Add(order);
+            _dbContext.SaveChanges();
+            return order.Id;
         }
     }
 }
