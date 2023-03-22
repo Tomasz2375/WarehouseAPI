@@ -5,6 +5,7 @@ using WarehouseAPI.Services;
 namespace WarehouseAPI.Controllers
 {
     [Route("api/account")]
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _service;

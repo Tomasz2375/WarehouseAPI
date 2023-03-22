@@ -7,6 +7,7 @@ using WarehouseAPI.Services;
 namespace WarehouseAPI.Controllers
 {
     [Route("api/order")]
+    [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -24,10 +25,6 @@ namespace WarehouseAPI.Controllers
         [HttpPost]
         public ActionResult AddOrder([FromBody] AddOrderDto dto)
         {
-            if(!ModelState.IsValid) 
-            {
-                return BadRequest(ModelState);
-            }
             var id = _orderService.AddOrder(dto);
             return Created($"api/order/{id}", null);
         }
