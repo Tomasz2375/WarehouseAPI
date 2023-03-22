@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WarehouseAPI.Entities;
 
@@ -11,9 +12,10 @@ using WarehouseAPI.Entities;
 namespace WarehouseAPI.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    partial class WarehouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230322111711_DBContextRefactor")]
+    partial class DBContextRefactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,10 +136,10 @@ namespace WarehouseAPI.Migrations
                     b.Property<DateTime>("AdmissionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("PostDate")
+                    b.Property<DateTime>("PostDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("PreparationDate")
+                    b.Property<DateTime>("PreparationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RequireDate")

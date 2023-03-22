@@ -38,6 +38,8 @@ namespace WarehouseAPI.Services
         {
             var order = _mapper.Map<Order>(dto);
             order.StatusId = 1;
+            order.PreparationDate = null;
+            order.PostDate = null;
             _dbContext.Add(order);
             _dbContext.SaveChanges();
             return order.Id;
