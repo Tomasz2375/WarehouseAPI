@@ -12,6 +12,8 @@ namespace WarehouseAPI
             CreateMap<ModifyGoodsDto, Goods>();
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(e => e.RoleName, c => c.MapFrom(r => r.Role.Name));
+            CreateMap<Order, OrderDto>()
+                .ForMember(o => o.Status, c => c.MapFrom(o => o.Status.Description));
         }
     }
 }

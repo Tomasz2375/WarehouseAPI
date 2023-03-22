@@ -21,6 +21,7 @@ builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddScoped<IGoodsService, GoodsService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
 builder.Services.AddScoped<IValidator<RegisterEmployeesDto>, RegisterEmployeeDtoValidator>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
