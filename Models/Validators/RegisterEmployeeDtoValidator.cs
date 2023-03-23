@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using WarehouseAPI.Entities;
 
-namespace WarehouseAPI.Models
+namespace WarehouseAPI.Models.Validators
 {
     public class RegisterEmployeeDtoValidator : AbstractValidator<RegisterEmployeesDto>
     {
         public RegisterEmployeeDtoValidator(WarehouseDbContext dbContext)
         {
-            
+
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Password).MinimumLength(6);
             RuleFor(x => x.ConfirmPassword).Equal(p => p.Password);
@@ -16,7 +16,7 @@ namespace WarehouseAPI.Models
                 .Custom((value, context) =>
                 {
                     var emailInUse = dbContext.Employees.Any(e => e.Email == value);
-                    if(emailInUse)
+                    if (emailInUse)
                     {
                         context.AddFailure("Email", "That email is taken");
                     }
