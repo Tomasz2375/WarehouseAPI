@@ -47,8 +47,6 @@ namespace WarehouseAPI.Entities
             modelBuilder.Entity<OrderDetails>(etb =>
             {
                 etb.Property(od => od.Quantity).IsRequired();
-                etb.Property(od => od.Price).HasPrecision(14, 2);
-                etb.Property(od => od.TotalPrice).HasPrecision(14, 2);
             });
             modelBuilder.Entity<Role>(etb =>
             {
