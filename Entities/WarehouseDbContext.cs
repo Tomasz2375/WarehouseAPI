@@ -16,7 +16,7 @@ namespace WarehouseAPI.Entities
         public DbSet<Employee> Employees { get; set; }  
         public DbSet<Goods> Goods { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Status> Status { get; set; }
 
@@ -44,7 +44,7 @@ namespace WarehouseAPI.Entities
                 etb.HasOne(o => o.Status).WithMany(s => s.Orders);
                 etb.HasMany(o => o.OrderDetails).WithOne(od => od.Order);
             });
-            modelBuilder.Entity<OrderDetail>(etb =>
+            modelBuilder.Entity<OrderDetails>(etb =>
             {
                 etb.Property(od => od.Quantity).IsRequired();
             });

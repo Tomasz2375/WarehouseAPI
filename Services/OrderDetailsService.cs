@@ -27,7 +27,7 @@ namespace WarehouseAPI.Services
             {
                 throw new NotFoundException("Order not found");
             }
-            var addOrder = _mapper.Map<OrderDetail>(dto);
+            var addOrder = _mapper.Map<OrderDetails>(dto);
             addOrder.OrderId = orderId;
 
             _dbContext.Add(addOrder);

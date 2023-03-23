@@ -9,6 +9,6 @@
         public DateTime RequireDate { get; set; }
         public Status Status { get; set; }
         public int StatusId { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+        public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
     }
 }
