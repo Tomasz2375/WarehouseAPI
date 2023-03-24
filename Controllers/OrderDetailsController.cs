@@ -20,5 +20,6 @@ namespace WarehouseAPI.Controllers
             var id = _orderDetailsService.Create(orderId, dto);
             return Created($"api/order/{orderId}/orderDetails/{id}", null);
         }
+
     }
 }

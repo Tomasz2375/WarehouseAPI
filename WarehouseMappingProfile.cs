@@ -16,6 +16,10 @@ namespace WarehouseAPI
                 .ForMember(o => o.Status, c => c.MapFrom(o => o.Status.Description));
             CreateMap<AddOrderDto, Order>();
             CreateMap<AddOrderDetailsDto, OrderDetails>();
+            CreateMap<OrderDetails, GetOrderDetailsDto>()
+                .ForMember(od => od.GoodsName, c => c.MapFrom(g => g.Goods.Name));
+            CreateMap<Order, GetOrderDto>()
+                .ForMember(o => o.Status, c => c.MapFrom(c => c.Status.Description));
         }
     }
 }
