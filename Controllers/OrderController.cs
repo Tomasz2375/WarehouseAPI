@@ -28,5 +28,11 @@ namespace WarehouseAPI.Controllers
             var id = _orderService.AddOrder(dto);
             return Created($"api/order/{id}", null);
         }
+        [HttpGet("{orderId}")]
+        public ActionResult GetOrderDetails([FromRoute] int orderId)
+        {
+            var orderDetails = _orderService.GetOrderDetails(orderId);
+            return Ok(orderDetails);
+        }
     }
 }

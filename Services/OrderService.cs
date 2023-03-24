@@ -10,6 +10,7 @@ namespace WarehouseAPI.Services
     {
         int AddOrder(AddOrderDto dto);
         IEnumerable<OrderDto> GetOrders();
+        GetOrderDto GetOrderDetails(int id);
     }
 
     public class OrderService : IOrderService
@@ -43,6 +44,19 @@ namespace WarehouseAPI.Services
             _dbContext.Add(order);
             _dbContext.SaveChanges();
             return order.Id;
+        }
+        public GetOrderDto GetOrderDetails(int id)
+        {
+            var order = _dbContext
+                .Orders
+                .Include(o => o.OrderDetails).ThenInclude(od => od.Goods)
+                .Include(o => o.Status)
+                .FirstOrDefault(o => o.Id == id);
+
+            if (order is null) throw new NotFoundException("Order not found");
+
+            var result = _mapper.Map<GetOrderDto>(order);
+            return result;
         }
     }
 }

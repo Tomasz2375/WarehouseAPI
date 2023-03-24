@@ -33,9 +33,9 @@ builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<WarehouseDbContext>(option => option
 .UseSqlServer(builder.Configuration.GetConnectionString("WarehouseConnectionString")));
-builder.Services.Configure<JsonOptions>(options =>
+builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 builder.Services.AddSwaggerGen();

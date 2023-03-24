@@ -10,7 +10,6 @@ namespace WarehouseAPI.Services
     public interface IOrderDetailsService
     {
         int Create(int orderId, AddOrderDetailsDto dto);
-        Order GetOrderDetails(int orderId);
     }
 
     public class OrderDetailsService : IOrderDetailsService
@@ -35,16 +34,6 @@ namespace WarehouseAPI.Services
             _dbContext.Add(addOrder);
             _dbContext.SaveChanges();
             return addOrder.Id;
-        }
-        public Order GetOrderDetails(int orderId)
-        {
-            var order = _dbContext
-                .Orders
-                .Include(od => od.OrderDetails).ToList()
-                .FirstOrDefault(o => o.Id == orderId);
-       
-            if (order is null) throw new NotFoundException("Order not found");
-            return order;
         }
     }
 }
