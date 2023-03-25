@@ -15,10 +15,23 @@ namespace WarehouseAPI.Controllers
         }
         [HttpPost]
         public ActionResult AddOrderDetails
-            ([FromRoute] int orderId, [FromBody]AddOrderDetailsDto dto)
+            ([FromRoute] int orderId, [FromBody] AddOrderDetailsDto dto)
         {
             var id = _orderDetailsService.Create(orderId, dto);
             return Created($"api/order/{orderId}/orderDetails/{id}", null);
+        }
+        [HttpPut("{orderDetailsId}")]
+        public ActionResult UpdateOrderDetails
+            ([FromRoute] int orderId, [FromRoute] int orderDetailsId, [FromBody] int quantity)
+        {
+            var id = _orderDetailsService.Update(orderId, orderDetailsId, quantity);
+            return Ok($"api/order/{orderId}/orderDetails/{id}");
+        }
+        [HttpDelete("{orderDetailsId}")]
+        public ActionResult DeleteOrederDetails([FromRoute] int orderId, [FromRoute] int orderDetailsId)
+        {
+            _orderDetailsService.Delete(orderId, orderDetailsId);
+            return NoContent();
         }
 
     }

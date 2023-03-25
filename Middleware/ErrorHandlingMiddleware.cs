@@ -21,6 +21,11 @@ namespace WarehouseAPI.Middleware
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFound.Message);
             }
+            catch(AlreadyExistExceptions alreadyExist)
+            {
+                context.Response.StatusCode = 405;
+                await context.Response.WriteAsync(alreadyExist.Message);
+            }
         }
 
     }
