@@ -27,17 +27,26 @@ namespace WarehouseAPI.Services
         }
         public int Create(int orderId, AddOrderDetailsDto dto)
         {
-            var order = _dbContext.Orders.FirstOrDefault(o => o.Id == orderId);
+            var order = _dbContext.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefault(o => o.Id == orderId);
+
             if (order is null)
             {
                 throw new NotFoundException("Order not found");
             }
-            var addOrder = _mapper.Map<OrderDetails>(dto);
-            addOrder.OrderId = orderId;
+            var addOrderDetails = _mapper.Map<OrderDetails>(dto);
+            addOrderDetails.OrderId = orderId;
 
-            _dbContext.Add(addOrder);
+
+            if (order.OrderDetails.Any(od => od.GoodsId == dto.GoodsId))
+            {
+                var orderDetailsId = order.OrderDetails.First(od => od.GoodsId == dto.GoodsId).Id;
+                throw new AlreadyExistExceptions($"This goods was already added. Try use method Update or Delete on orderDetailsId = {orderDetailsId}.");
+            }
+            _dbContext.Add(addOrderDetails);
             _dbContext.SaveChanges();
-            return addOrder.Id;
+            return addOrderDetails.Id;
         }
         public int Update(int orderId, int orderDetailsId, int quantity)
         {
