@@ -27,6 +27,12 @@ namespace WarehouseAPI.Controllers
             var id = _orderDetailsService.Update(orderId, orderDetailsId, quantity);
             return Ok($"api/order/{orderId}/orderDetails/{id}");
         }
+        [HttpDelete("{orderDetailsId}")]
+        public ActionResult DeleteOrederDetails([FromRoute] int orderId, [FromRoute] int orderDetailsId)
+        {
+            _orderDetailsService.Delete(orderId, orderDetailsId);
+            return NoContent();
+        }
 
     }
 }

@@ -13,6 +13,7 @@ namespace WarehouseAPI.Services
     {
         int Create(int orderId, AddOrderDetailsDto dto);
         int Update(int orderId, int orderDetailsId, int quantity);
+        void Delete(int orderId, int orderDetailsId);
     }
 
     public class OrderDetailsService : IOrderDetailsService
@@ -53,6 +54,21 @@ namespace WarehouseAPI.Services
             orderDetails.Quantity = quantity;
             _dbContext.SaveChanges();
             return orderDetails.Id;              
+        }
+        public void Delete(int orderId, int orderDetailsId) 
+        {
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order is null)
+            {
+                throw new NotFoundException("Order not found");
+            }
+            var orderDetails = _dbContext.OrderDetails.FirstOrDefault(od => od.Id == orderDetailsId);
+            if(orderDetails is null || orderDetails.OrderId != orderId)
+            {
+                throw new NotFoundException("This order deteils does not exist in currant context");
+            }
+            _dbContext.Remove(orderDetails);
+            _dbContext.SaveChanges();
         }
     }
 }
