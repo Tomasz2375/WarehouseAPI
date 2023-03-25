@@ -6,11 +6,11 @@ namespace WarehouseAPI.Services
 {
     public interface IGoodsService
     {
-        public Goods GetById(int id);
-        public IEnumerable<Goods> GetAll();
-        public int AddGoogs(AddGoodsDto dto);
+        Goods GetById(int id);
+        IEnumerable<Goods> GetAll();
+        int AddGoogs(AddGoodsDto dto);
         bool Update(int id, ModifyGoodsDto dto);
-        public bool Delete(int id);
+        bool Delete(int id);
     }
 
     public class GoodsService : IGoodsService
