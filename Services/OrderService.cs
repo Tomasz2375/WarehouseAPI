@@ -12,6 +12,7 @@ namespace WarehouseAPI.Services
         IEnumerable<OrderDto> GetOrders();
         GetOrderDto GetOrderDetails(int id);
         void DeleteOrder(int id);
+        string UpdateStatus(int orderId, int statusId);
     }
 
     public class OrderService : IOrderService
@@ -69,6 +70,26 @@ namespace WarehouseAPI.Services
             }
             _dbContext.Remove(order);
             _dbContext.SaveChanges();
+        }
+
+        public string UpdateStatus(int orderId, int statusId)
+        {
+            var order = _dbContext
+                .Orders
+                .Include(o => o.Status)
+                .FirstOrDefault(o => o.Id == orderId);
+            if(order is null)
+            {
+                throw new NotFoundException("Order not found");
+            }
+            if(order.StatusId == statusId)
+            {
+                return order.Status.Description;
+            }
+            order.StatusId = statusId;
+            _dbContext.SaveChanges();
+            return _dbContext.Orders.Include(o => o.Status)
+                .First(o => o.Id == orderId).Status.Description;
         }
     }
 }
