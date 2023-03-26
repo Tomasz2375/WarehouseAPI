@@ -35,7 +35,7 @@ namespace WarehouseAPI.Controllers
             return Ok(orderDetails);
         }
         [HttpPut("{orderId}")]
-        public ActionResult UpdateOrderStatus([FromRoute] int orderId, [FromBody] int orderStatus)
+        public ActionResult UpdateOrderStatus([FromRoute] int orderId, [FromBody] UpdateStatusDto orderStatus)
         {
             var statusDescription = _orderService.UpdateStatus(orderId, orderStatus);
             return Ok($"Order with id {orderId} has status: {statusDescription}.");
