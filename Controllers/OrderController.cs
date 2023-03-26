@@ -34,5 +34,11 @@ namespace WarehouseAPI.Controllers
             var orderDetails = _orderService.GetOrderDetails(orderId);
             return Ok(orderDetails);
         }
+        [HttpDelete("{orderId}")]
+        public ActionResult DeleteOrder(int orderId)
+        {
+            _orderService.DeleteOrder(orderId);
+            return NoContent();
+        }
     }
 }
