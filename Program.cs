@@ -28,6 +28,7 @@ builder.Services.AddScoped<IOrderDetailsService, OrderDetailsService>();
 builder.Services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
 builder.Services.AddScoped<IValidator<RegisterEmployeesDto>, RegisterEmployeeDtoValidator>();
 builder.Services.AddScoped<IValidator<AddOrderDetailsDto>, AddOrderDetailsDtoValidation>();
+builder.Services.AddScoped<IValidator<UpdateStatusDto>, UpdateStatusDtoValidator>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

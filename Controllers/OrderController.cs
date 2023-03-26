@@ -34,5 +34,17 @@ namespace WarehouseAPI.Controllers
             var orderDetails = _orderService.GetOrderDetails(orderId);
             return Ok(orderDetails);
         }
+        [HttpPut("{orderId}")]
+        public ActionResult UpdateOrderStatus([FromRoute] int orderId, [FromBody] UpdateStatusDto orderStatus)
+        {
+            var statusDescription = _orderService.UpdateStatus(orderId, orderStatus);
+            return Ok($"Order with id {orderId} has status: {statusDescription}.");
+        }
+        [HttpDelete("{orderId}")]
+        public ActionResult DeleteOrder(int orderId)
+        {
+            _orderService.DeleteOrder(orderId);
+            return NoContent();
+        }
     }
 }
