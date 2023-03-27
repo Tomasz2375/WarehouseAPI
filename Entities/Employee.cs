@@ -9,7 +9,7 @@
         public string PasswordHash { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        public Address Address { get; set; }
+        public EmployeeAddress Address { get; set; }
         public Role Role { get; set; }
         public int RoleId { get; set; }
     }

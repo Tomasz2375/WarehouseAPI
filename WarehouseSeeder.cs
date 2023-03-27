@@ -31,7 +31,7 @@ namespace WarehouseAPI
                     Surname = "Nosal",
                     Email = "nosal@wh.com",
                     DateOfBirth = new DateTime(1993, 9, 29),
-                    Address = new Address()
+                    Address = new EmployeeAddress()
                     {
                         Country = "Polska",
                         City = "Lublin",
@@ -47,7 +47,7 @@ namespace WarehouseAPI
                     Surname = "Nowak",
                     Email = "nowak@wh.com",
                     DateOfBirth = new DateTime(1987, 5, 21),
-                    Address = new Address()
+                    Address = new EmployeeAddress()
                     {
                         Country = "Polska",
                         City = "Lublin",
@@ -63,7 +63,7 @@ namespace WarehouseAPI
                     Surname = "Czerwonka",
                     Email = "czerwonka@wh.com",
                     DateOfBirth = new DateTime(1988, 1, 30),
-                    Address = new Address()
+                    Address = new EmployeeAddress()
                     {
                         Country = "Polska",
                         City = "Lublin",
@@ -79,7 +79,7 @@ namespace WarehouseAPI
                     Surname = "Soplica",
                     Email = "soplica@wh.com",
                     DateOfBirth = new DateTime(1997, 11, 22),
-                    Address = new Address()
+                    Address = new EmployeeAddress()
                     {
                         Country = "Polska",
                         City = "Lublin",
