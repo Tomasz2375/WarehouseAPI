@@ -13,6 +13,8 @@ namespace WarehouseAPI.Entities
         }
 
         public DbSet<Address> Addresses { get; set; }   
+        public DbSet<ClientAddress> ClientAddresses { get; set; }
+        public DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
         public DbSet<Employee> Employees { get; set; }  
         public DbSet<Goods> Goods { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -22,6 +24,13 @@ namespace WarehouseAPI.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Client>(etb =>
+            {
+                etb.Property(c => c.Name).IsRequired();
+                etb.Property(c => c.PhoneNumber).IsRequired();
+                etb.Property(c => c.Email).IsRequired();
+                etb.HasOne(c => c.Address).WithOne(a => a.Client);
+            });
             modelBuilder.Entity<Employee>(etb =>
             {
                 etb.Property(e => e.Name).IsRequired().HasMaxLength(25);
