@@ -26,6 +26,7 @@ namespace WarehouseAPI
                 .ForPath(c => c.Address.Street, imapper => imapper.MapFrom(a => a.Street))
                 .ForPath(c => c.Address.PostalCode, imapper => imapper.MapFrom(a => a.PostalCode))
                 .ForPath(c => c.Address.HouseNumber, imapper => imapper.MapFrom(a => a.HouseNumber));
+            CreateMap<Client, GetClientDto>();
         }
     }
 }

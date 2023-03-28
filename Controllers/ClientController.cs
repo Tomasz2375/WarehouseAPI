@@ -19,6 +19,12 @@ namespace WarehouseAPI.Controllers
             var clientId = _clientService.AddClient(dto);
             return Created($"/api/client/{clientId}", null);
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<GetClientDto>> GetAll()
+        {
+            var clients = _clientService.GetClients();
+            return Ok(clients);
+        }
 
     }
 }
