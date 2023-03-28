@@ -12,6 +12,7 @@ namespace WarehouseAPI.Services
         IEnumerable<GetClientsDto> GetClients();
         ClientDto GetClientById(int clientId);
         int Update(int clientId, ClientDto dto);
+        void Delete(int clientId);
     }
 
     public class ClientService : IClientService
@@ -72,6 +73,17 @@ namespace WarehouseAPI.Services
             _dbContext.SaveChanges();
 
             return client.Id;
+        }
+        public void Delete(int clientId)
+        {
+            var client = _dbContext.Clients.FirstOrDefault(c => c.Id == clientId);
+
+            if (client == null)
+            {
+                throw new NotFoundException("Client not found");
+            }
+            _dbContext.Clients.Remove(client);
+            _dbContext.SaveChanges();
         }
     }
 }

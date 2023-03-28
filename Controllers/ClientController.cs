@@ -38,6 +38,11 @@ namespace WarehouseAPI.Controllers
             var result = _clientService.Update(clientId, dto);
             return Ok($"Updated client data with Id {clientId}.");
         }
-
+        [HttpDelete("{clientId}")]
+        public ActionResult Delete([FromRoute] int clientId)
+        {
+            _clientService.Delete(clientId);
+            return NoContent();
+        }
     }
 }
