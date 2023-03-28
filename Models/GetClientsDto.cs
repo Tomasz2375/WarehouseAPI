@@ -1,6 +1,6 @@
 ﻿namespace WarehouseAPI.Models
 {
-    public class GetClientDto
+    public class GetClientsDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -30,7 +30,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IValidator<RegisterEmployeesDto>, RegisterEmployeeDtoValidator>();
 builder.Services.AddScoped<IValidator<AddOrderDetailsDto>, AddOrderDetailsDtoValidation>();
 builder.Services.AddScoped<IValidator<UpdateStatusDto>, UpdateStatusDtoValidator>();
-builder.Services.AddScoped<IValidator<AddClientDto>, AddClientDtoValidation>();
+builder.Services.AddScoped<IValidator<ClientDto>, AddClientDtoValidation>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<WarehouseSeeder>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

@@ -2,7 +2,7 @@
 
 namespace WarehouseAPI.Models.Validators
 {
-    public class AddClientDtoValidation : AbstractValidator<AddClientDto>
+    public class AddClientDtoValidation : AbstractValidator<ClientDto>
     {
         public AddClientDtoValidation()
         {
