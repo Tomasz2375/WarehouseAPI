@@ -15,6 +15,7 @@ namespace WarehouseAPI.Entities
         public DbSet<Address> Addresses { get; set; }   
         public DbSet<ClientAddress> ClientAddresses { get; set; }
         public DbSet<EmployeeAddress> EmployeeAddresses { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }  
         public DbSet<Goods> Goods { get; set; }
         public DbSet<Order> Orders { get; set; }
