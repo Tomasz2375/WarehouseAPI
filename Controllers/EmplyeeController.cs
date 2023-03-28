@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WarehouseAPI.Entities;
 using WarehouseAPI.Models;
 using WarehouseAPI.Services;
 
