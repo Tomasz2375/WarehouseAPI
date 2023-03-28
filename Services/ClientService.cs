@@ -11,6 +11,7 @@ namespace WarehouseAPI.Services
         int AddClient(ClientDto dto);
         IEnumerable<GetClientsDto> GetClients();
         ClientDto GetClientById(int clientId);
+        int Update(int clientId, ClientDto dto);
     }
 
     public class ClientService : IClientService
@@ -48,6 +49,29 @@ namespace WarehouseAPI.Services
 
             var result = _mapper.Map<ClientDto>(client);
             return result;
+        }
+        public int Update(int clientId, ClientDto dto)
+        {
+            var client = _dbContext.Clients
+                .Include(c => c.Address)
+                .FirstOrDefault(c => c.Id == clientId);
+            if(client == null)
+            {
+                throw new NotFoundException("Client not found");
+            }
+            
+            client.Name = dto.Name;
+            client.Email = dto.Email;
+            client.PhoneNumber = dto.PhoneNumber;
+            client.Address.Country = dto.Country;
+            client.Address.City = dto.City;
+            client.Address.Street = dto.Street;
+            client.Address.PostalCode = dto.PostalCode;
+            client.Address.HouseNumber = dto.HouseNumber;
+
+            _dbContext.SaveChanges();
+
+            return client.Id;
         }
     }
 }

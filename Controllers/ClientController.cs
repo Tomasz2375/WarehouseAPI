@@ -32,6 +32,12 @@ namespace WarehouseAPI.Controllers
             var client = _clientService.GetClientById(clientId);
             return Ok(client);
         }
+        [HttpPut("{clientId}")]
+        public ActionResult Update([FromRoute] int clientId, [FromBody] ClientDto dto) 
+        {
+            var result = _clientService.Update(clientId, dto);
+            return Ok($"Updated client data with Id {clientId}.");
+        }
 
     }
 }
