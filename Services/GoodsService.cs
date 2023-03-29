@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WarehouseAPI.Entities;
+using WarehouseAPI.Exceptions;
 using WarehouseAPI.Models;
 
 namespace WarehouseAPI.Services
@@ -9,8 +10,8 @@ namespace WarehouseAPI.Services
         Goods GetById(int id);
         IEnumerable<Goods> GetAll();
         int AddGoogs(AddGoodsDto dto);
-        bool Update(int id, ModifyGoodsDto dto);
-        bool Delete(int id);
+        int Update(int id, ModifyGoodsDto dto);
+        void Delete(int id);
     }
 
     public class GoodsService : IGoodsService
@@ -33,9 +34,9 @@ namespace WarehouseAPI.Services
             .Goods
             .FirstOrDefault(g => g.Id == id);
 
-            if (goods == null)
+            if (goods is null)
             {
-                return null;
+                throw new NotFoundException("Goods not found");
             }
 
             return goods;
@@ -47,27 +48,29 @@ namespace WarehouseAPI.Services
             _dbContext.SaveChanges();
             return goods.Id;
         }
-        public bool Update(int id, ModifyGoodsDto dto)
+        public int Update(int id, ModifyGoodsDto dto)
         {
             var goods = _dbContext.Goods
                 .FirstOrDefault(g => g.Id == id);
             if(goods is null)
             {
-                return false;
+                throw new NotFoundException("Goods not found");
             }
             goods.Stock = dto.Stock;
             goods.Price = dto.Price;
             goods.Description = dto.Description;
             _dbContext.SaveChanges();
-            return true;
+            return goods.Id;
         }
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             var goods = _dbContext.Goods.FirstOrDefault(g => g.Id == id);
-            if (goods is null) return false;
+            if (goods is null)
+            {
+                throw new NotFoundException("Goods not found");
+            }
             _dbContext.Remove(goods);
             _dbContext.SaveChanges();
-            return true;
         }
     }
 }
