@@ -5,8 +5,6 @@ namespace WarehouseAPI.Entities
 {
     public class WarehouseDbContext : DbContext
     {
-        // private string _connectionString =
-        // "Server=LAPTOP-V2SU36SG\\SQLEXPRESS01;Database=WarehouseAPI;Trusted_Connection=True;Encrypt=False";
         public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options)
         {
 
@@ -25,57 +23,7 @@ namespace WarehouseAPI.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Client>(etb =>
-            {
-                etb.Property(c => c.Name).IsRequired();
-                etb.Property(c => c.PhoneNumber).IsRequired();
-                etb.Property(c => c.Email).IsRequired();
-                etb.HasOne(c => c.Address).WithOne(a => a.Client);
-            });
-            modelBuilder.Entity<Employee>(etb =>
-            {
-                etb.Property(e => e.Name).IsRequired().HasMaxLength(25);
-                etb.Property(e => e.Surname).IsRequired().HasMaxLength(25);
-                etb.Property(e => e.Email).IsRequired().HasMaxLength(25);
-                etb.Property(e => e.DateOfBirth).IsRequired();
-                etb.HasOne(e => e.Address).WithOne(a => a.Employee);
-                etb.HasOne(e => e.Role).WithMany(r => r.Employees).IsRequired();
-            });
-            modelBuilder.Entity<Goods>(etb =>
-            {
-                etb.Property(g => g.Name).IsRequired().HasMaxLength(25);
-                etb.Property(g => g.Price).HasPrecision(14, 2);
-                etb.HasMany(g => g.OrderDetails).WithOne(od => od.Goods);
-            });
-            modelBuilder.Entity<Order>(etb =>
-            {
-                etb.Property(o => o.AdmissionDate).IsRequired();
-                etb.Property(o => o.RequireDate).IsRequired();
-                etb.HasOne(o => o.Status).WithMany(s => s.Orders);
-                etb.HasMany(o => o.OrderDetails).WithOne(od => od.Order);
-            });
-            modelBuilder.Entity<OrderDetails>(etb =>
-            {
-                etb.Property(od => od.Quantity).IsRequired();
-            });
-            modelBuilder.Entity<Role>(etb =>
-            {
-                etb.HasData(
-                    new Role() { Id = 1, Name = "OrderPicker" },
-                    new Role() { Id = 2, Name = "Warehouseman" },
-                    new Role() { Id = 3, Name = "Planner" },
-                    new Role() { Id = 4, Name = "Administrator" } );
-            });
-            modelBuilder.Entity<Status>(etb =>
-            {
-                etb.HasData(
-                    new Status() { Id = 1, Description = "Waiting" },
-                    new Status() { Id = 2, Description = "InPreparation" },
-                    new Status() { Id = 3, Description = "Prepared" },
-                    new Status() { Id = 4, Description = "Sent" },
-                    new Status() { Id = 5, Description = "Rejected" } );
-            });
-
+            modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
         }
     }
 }

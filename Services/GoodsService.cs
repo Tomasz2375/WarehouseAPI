@@ -38,7 +38,6 @@ namespace WarehouseAPI.Services
             {
                 throw new NotFoundException("Goods not found");
             }
-
             return goods;
         }
         public int AddGoogs(AddGoodsDto dto)
