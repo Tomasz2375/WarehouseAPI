@@ -33,6 +33,7 @@ namespace WarehouseAPI
                 .ForMember(a => a.PostalCode, imapper => imapper.MapFrom(c => c.Address.PostalCode))
                 .ForMember(a => a.HouseNumber, imapper => imapper.MapFrom(c => c.Address.HouseNumber));
             CreateMap<Client, GetClientsDto>();
+            CreateMap<Goods, GetGoodsDto>();
         }
     }
 }

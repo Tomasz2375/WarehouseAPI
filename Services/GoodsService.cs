@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using WarehouseAPI.Entities;
+using WarehouseAPI.Exceptions;
 using WarehouseAPI.Models;
 
 namespace WarehouseAPI.Services
 {
     public interface IGoodsService
     {
-        Goods GetById(int id);
-        IEnumerable<Goods> GetAll();
+        GetGoodsDto GetById(int id);
+        IEnumerable<GetGoodsDto> GetAll();
         int AddGoogs(AddGoodsDto dto);
-        bool Update(int id, ModifyGoodsDto dto);
-        bool Delete(int id);
+        int Update(int id, ModifyGoodsDto dto);
+        void Delete(int id);
     }
 
     public class GoodsService : IGoodsService
@@ -22,23 +23,25 @@ namespace WarehouseAPI.Services
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public IEnumerable<Goods> GetAll() 
+        public IEnumerable<GetGoodsDto> GetAll() 
         {
-            var goods = _dbContext.Goods.ToList();
-            return goods;
+            var goods = _dbContext.Goods;
+            var result = _mapper.Map<IEnumerable<GetGoodsDto>>(goods);
+            return result;
         }
-        public Goods GetById(int id)
+        public GetGoodsDto GetById(int id)
         {
             var goods = _dbContext
             .Goods
             .FirstOrDefault(g => g.Id == id);
 
-            if (goods == null)
+            if (goods is null)
             {
-                return null;
+                throw new NotFoundException("Goods not found");
             }
 
-            return goods;
+            var result = _mapper.Map<GetGoodsDto>(goods);
+            return result;
         }
         public int AddGoogs(AddGoodsDto dto)
         {
@@ -47,27 +50,29 @@ namespace WarehouseAPI.Services
             _dbContext.SaveChanges();
             return goods.Id;
         }
-        public bool Update(int id, ModifyGoodsDto dto)
+        public int Update(int id, ModifyGoodsDto dto)
         {
             var goods = _dbContext.Goods
                 .FirstOrDefault(g => g.Id == id);
             if(goods is null)
             {
-                return false;
+                throw new NotFoundException("Goods not found");
             }
             goods.Stock = dto.Stock;
             goods.Price = dto.Price;
             goods.Description = dto.Description;
             _dbContext.SaveChanges();
-            return true;
+            return goods.Id;
         }
-        public bool Delete(int id)
+        public void Delete(int id)
         {
             var goods = _dbContext.Goods.FirstOrDefault(g => g.Id == id);
-            if (goods is null) return false;
+            if (goods is null)
+            {
+                throw new NotFoundException("Goods not found");
+            }
             _dbContext.Remove(goods);
             _dbContext.SaveChanges();
-            return true;
         }
     }
 }
