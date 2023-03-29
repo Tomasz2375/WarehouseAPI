@@ -7,8 +7,8 @@ namespace WarehouseAPI.Services
 {
     public interface IGoodsService
     {
-        Goods GetById(int id);
-        IEnumerable<Goods> GetAll();
+        GetGoods GetById(int id);
+        IEnumerable<GetGoods> GetAll();
         int AddGoogs(AddGoodsDto dto);
         int Update(int id, ModifyGoodsDto dto);
         void Delete(int id);
@@ -23,12 +23,13 @@ namespace WarehouseAPI.Services
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public IEnumerable<Goods> GetAll() 
+        public IEnumerable<GetGoods> GetAll() 
         {
-            var goods = _dbContext.Goods.ToList();
-            return goods;
+            var goods = _dbContext.Goods;
+            var result = _mapper.Map<IEnumerable<GetGoods>>(goods);
+            return result;
         }
-        public Goods GetById(int id)
+        public GetGoods GetById(int id)
         {
             var goods = _dbContext
             .Goods
@@ -38,7 +39,9 @@ namespace WarehouseAPI.Services
             {
                 throw new NotFoundException("Goods not found");
             }
-            return goods;
+
+            var result = _mapper.Map<GetGoods>(goods);
+            return result;
         }
         public int AddGoogs(AddGoodsDto dto)
         {

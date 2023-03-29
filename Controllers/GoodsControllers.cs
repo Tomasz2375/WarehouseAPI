@@ -17,13 +17,13 @@ namespace WarehouseAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult <IEnumerable<Goods>> GetAllGoods() 
+        public ActionResult <IEnumerable<GetGoodsDto>> GetAllGoods() 
         {
             var goods = _goodsService.GetAll();
             return Ok(goods);
         }
         [HttpGet("{id}")]
-        public ActionResult <Goods> GetGoodsFromId([FromRoute] int id)
+        public ActionResult <GetGoodsDto> GetGoodsFromId([FromRoute] int id)
         {
             var goods = _goodsService.GetById(id);
             return Ok(goods);
