@@ -1,9 +1,9 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NLog.Web;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -16,6 +16,10 @@ using WarehouseAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// NLog: Setup NLog for Dependency injection
+
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
 // Add services to the container.
 

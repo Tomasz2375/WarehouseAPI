@@ -18,19 +18,25 @@ namespace WarehouseAPI.Services
     {
         private readonly WarehouseDbContext _dbContext;
         private readonly IMapper _mapper;
-        public GoodsService(WarehouseDbContext dbContext, IMapper mapper)
+        private readonly ILogger<GoodsService> _logger;
+
+        public GoodsService(WarehouseDbContext dbContext, IMapper mapper, ILogger<GoodsService> logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _logger = logger;
         }
-        public IEnumerable<GetGoodsDto> GetAll() 
+        public IEnumerable<GetGoodsDto> GetAll()
         {
+            _logger.LogInformation("GetAll()");
             var goods = _dbContext.Goods;
             var result = _mapper.Map<IEnumerable<GetGoodsDto>>(goods);
             return result;
         }
         public GetGoodsDto GetById(int id)
         {
+            _logger.LogInformation($"GetById({id})");
+
             var goods = _dbContext
             .Goods
             .FirstOrDefault(g => g.Id == id);
@@ -45,6 +51,8 @@ namespace WarehouseAPI.Services
         }
         public int AddGoogs(AddGoodsDto dto)
         {
+            _logger.LogWarning($"AddGoods({dto})");
+
             var goods = _mapper.Map<Goods>(dto);
             _dbContext.Goods.Add(goods);
             _dbContext.SaveChanges();
@@ -52,9 +60,11 @@ namespace WarehouseAPI.Services
         }
         public int Update(int id, ModifyGoodsDto dto)
         {
+            _logger.LogWarning($"Update(id = {id}, dto = {dto})");
+
             var goods = _dbContext.Goods
                 .FirstOrDefault(g => g.Id == id);
-            if(goods is null)
+            if (goods is null)
             {
                 throw new NotFoundException("Goods not found");
             }
@@ -66,6 +76,8 @@ namespace WarehouseAPI.Services
         }
         public void Delete(int id)
         {
+            _logger.LogWarning($"Delete(id = {id})");
+
             var goods = _dbContext.Goods.FirstOrDefault(g => g.Id == id);
             if (goods is null)
             {
