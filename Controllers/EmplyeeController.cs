@@ -15,7 +15,7 @@ namespace WarehouseAPI.Controllers
         [HttpGet]
         public ActionResult <IEnumerable<EmployeeDto>> GetAllEmployee()
         {
-            var employees = _employeeService.GetAllEmployee();
+            var employees = _employeeService.GetAllEmployees();
             return Ok(employees);
         }
         [HttpGet("{id}")]

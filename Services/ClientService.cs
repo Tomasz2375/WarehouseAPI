@@ -60,11 +60,11 @@ namespace WarehouseAPI.Services
 
             if (client == null)
             {
-                _logger.LogError($"Error: client with Id = {clientId} not found)");
+                _logger.LogError($"Error: client with Id = {clientId} not found");
                 throw new NotFoundException("Client not found");
             }
 
-            _logger.LogInformation($"Get client with id = {clientId})");
+            _logger.LogInformation($"Get client with id = {clientId}");
             var result = _mapper.Map<ClientDto>(client);
             return result;
         }
@@ -79,7 +79,7 @@ namespace WarehouseAPI.Services
 
             if(client == null)
             {
-                _logger.LogError($"Error: client with Id = {clientId} not found)");
+                _logger.LogError($"Error: client with Id = {clientId} not found");
                 throw new NotFoundException("Client not found");
             }
             
@@ -92,7 +92,7 @@ namespace WarehouseAPI.Services
             client.Address.PostalCode = dto.PostalCode;
             client.Address.HouseNumber = dto.HouseNumber;
 
-            _logger.LogInformation($"Updated client details with id = {clientId})");
+            _logger.LogInformation($"Updated client details with id = {clientId}");
 
             _dbContext.SaveChanges();
 
@@ -107,11 +107,11 @@ namespace WarehouseAPI.Services
 
             if (client == null)
             {
-                _logger.LogError($"Error: client with Id = {clientId} not found)");
+                _logger.LogError($"Error: client with Id = {clientId} not found");
                 throw new NotFoundException("Client not found");
             }
 
-            _logger.LogInformation($"Deleted client with id = {clientId})");
+            _logger.LogInformation($"Deleted client with id = {clientId}");
             _dbContext.Clients.Remove(client);
             _dbContext.SaveChanges();
         }
