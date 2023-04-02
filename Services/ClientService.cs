@@ -52,7 +52,7 @@ namespace WarehouseAPI.Services
 
         public ClientDto GetClientById(int clientId) 
         {
-            _logger.LogInformation($"Invoke: GetClientsById(id = {clientId})");
+            _logger.LogInformation($"Invoke: GetClientsById(id = {clientId}");
 
             var client = _dbContext.Clients
                 .Include(c => c.Address)
@@ -79,7 +79,7 @@ namespace WarehouseAPI.Services
 
             if(client == null)
             {
-                _logger.LogError($"Error: client with Id = {clientId} not found");
+                _logger.LogError($"Error: client with id = {clientId} not found");
                 throw new NotFoundException("Client not found");
             }
             
