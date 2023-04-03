@@ -56,7 +56,7 @@ namespace WarehouseAPI.Services
             _dbContext.Add(order);
             _dbContext.SaveChanges();
 
-            _logger.LogInformation($"Added order with Id = {order.Id}");
+            _logger.LogInformation($"Added order with id = {order.Id}");
 
             return order.Id;
         }
