@@ -15,34 +15,42 @@ namespace WarehouseAPI.Services
         public void RegisterEmployee(RegisterEmployeesDto dto);
         public string GenerateJwt(LoginDto dto);
     }
+
     public class AccountService : IAccountService
     {
         private readonly WarehouseDbContext _dbContext;
         private readonly IPasswordHasher<Employee> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
+        private readonly ILogger<AccountService> _logger;
+
         public AccountService(WarehouseDbContext dbContext, 
             IPasswordHasher<Employee> passwordHasher,
-            AuthenticationSettings authenticationSettings)
+            AuthenticationSettings authenticationSettings,
+            ILogger<AccountService> logger)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
+            _logger = logger;
         }
 
         public string GenerateJwt(LoginDto dto)
         {
+            _logger.LogInformation("Invoke: GenerateJwt(LoginDto)");
             var employee = _dbContext
                 .Employees
                 .Include(e => e.Role)
                 .FirstOrDefault(e => e.Email == dto.Email);
             if(employee is null)
             {
+                _logger.LogError("Error: invalid user name or password");
                 throw new BadRequestException("Invalid user name or password");
             }
             var result = _passwordHasher
                 .VerifyHashedPassword(employee, employee.PasswordHash, dto.Password);
             if(result == PasswordVerificationResult.Failed)
             {
+                _logger.LogError("Error: invalid user name or password");
                 throw new BadRequestException("Invalid user name or password");
             }
             var claims = new List<Claim>
@@ -63,12 +71,15 @@ namespace WarehouseAPI.Services
                 expires: expires,
                 signingCredentials: cred);
 
+            _logger.LogInformation("The employee logged in to the service");
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
 
         public void RegisterEmployee(RegisterEmployeesDto dto)
         {
+            _logger.LogInformation("Invoke: RegisterEmployee(RegisterEmployeeDto)");
+
             var newEmployee = new Employee
             {
                 Name = dto.Name,
@@ -81,6 +92,7 @@ namespace WarehouseAPI.Services
             newEmployee.PasswordHash = hashedPassword;
             _dbContext.Add(newEmployee);
             _dbContext.SaveChanges();
+            _logger.LogInformation("The employee added in to the service");
         }
     }
 }

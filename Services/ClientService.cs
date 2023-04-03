@@ -60,7 +60,7 @@ namespace WarehouseAPI.Services
 
             if (client == null)
             {
-                _logger.LogError($"Error: client with Id = {clientId} not found");
+                _logger.LogError($"Error: client with id = {clientId} not found");
                 throw new NotFoundException("Client not found");
             }
 
@@ -107,7 +107,7 @@ namespace WarehouseAPI.Services
 
             if (client == null)
             {
-                _logger.LogError($"Error: client with Id = {clientId} not found");
+                _logger.LogError($"Error: client with id = {clientId} not found");
                 throw new NotFoundException("Client not found");
             }
 
